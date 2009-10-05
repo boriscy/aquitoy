@@ -29,7 +29,21 @@ describe Registro do
     resp[1].first.should == Time.zone.parse("#{Date.today} #{rangos[1][0]}" )
     resp[1].last.should == Time.zone.parse("#{Date.today} #{rangos[1][1]}" )
   end
-  
+ 
+  it "no debe registrar dos entradas para el mismo usuario" do
+    t = Time.zone.parse("#{Date.today} 08:44")
+    Time.zone.stub!(:now).and_return(t)
+    Registro.definir_horas_entrada()
+    registro = Registro.create!(:usuario_id => 1)
+    t = Time.zone.parse("#{Date.today} 08:40")
+    Time.zone.stub!(:now).and_return(t)
+    
+    registro = Registro.create(:usuario_id => 1)
+debugger
+    registro.should == ""
+  end
+
+ 
   it "debe registrar en el rango de entrada" do
     t = Time.zone.parse("#{Date.today} 08:34")
     Time.zone.stub!(:now).and_return(t)
@@ -55,6 +69,8 @@ describe Registro do
     registro = Registro.create(:usuario_id => 1)
     registro.tipo.should == "S"
   end
+
+
 
 end
 

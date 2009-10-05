@@ -1,0 +1,29 @@
+<% form_for(@usuario, :multipart => true) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </p>
+  <p>
+    <%= f.label :paterno %><br />
+    <%= f.text_field :paterno %>
+  </p>
+  <p>
+    <%= f.label :materno %><br />
+    <%= f.text_field :materno %>
+  </p>
+  <p>
+    <%= f.label :ci %><br />
+    <%= f.text_field :ci %>
+  </p>
+  <p>
+    <%= f.label :foto %><br />
+    <%= f.file_field :foto %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+

@@ -12,8 +12,14 @@ class Registro < ActiveRecord::Base
   def adicionar_entrada_salida
     self.tipo = "S"
     self.class.definir_horas_entrada().each do |v|
-      if v.include?(Time.zone.now)
+      reg = self.class.last(:conditions => {:created_at => v})
+      reg = self.class.new if reg.nil?
+
+      if v.include?(Time.zone.now) and !v.include?(reg.created_at)
         self.tipo = "E"
+      else
+        errors.add_to_base("Usted ya ha sido registrado")
+        return false
       end
     end
 

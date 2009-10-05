@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005161815) do
+ActiveRecord::Schema.define(:version => 20091005202318) do
 
   create_table "registros", :force => true do |t|
     t.integer  "usuario_id"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20091005161815) do
     t.boolean  "activo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "foto_file_name"
+    t.integer  "foto_file_size"
   end
 
 end
