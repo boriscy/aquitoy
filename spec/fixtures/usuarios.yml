@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nombre: MyString
+  paterno: MyString
+  materno: MyString
+  ci: MyString
+
+two:
+  nombre: MyString
+  paterno: MyString
+  materno: MyString
+  ci: MyString

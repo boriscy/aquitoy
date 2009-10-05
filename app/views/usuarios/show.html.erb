@@ -1,0 +1,23 @@
+<p>
+  <b>Nombre:</b>
+  <%=h @usuario.nombre %>
+</p>
+
+<p>
+  <b>Paterno:</b>
+  <%=h @usuario.paterno %>
+</p>
+
+<p>
+  <b>Materno:</b>
+  <%=h @usuario.materno %>
+</p>
+
+<p>
+  <b>Ci:</b>
+  <%=h @usuario.ci %>
+</p>
+
+
+<%= link_to 'Edit', edit_usuario_path(@usuario) %> |
+<%= link_to 'Back', usuarios_path %>

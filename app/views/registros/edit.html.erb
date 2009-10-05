@@ -1,0 +1,16 @@
+<h1>Editing registro</h1>
+
+<% form_for(@registro) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :usuario_id %><br />
+    <%= f.text_field :usuario_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @registro %> |
+<%= link_to 'Back', registros_path %>

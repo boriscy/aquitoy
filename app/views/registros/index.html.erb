@@ -1,0 +1,20 @@
+<h1>Listing registros</h1>
+
+<table>
+  <tr>
+    <th>Usuario</th>
+  </tr>
+
+<% @registros.each do |registro| %>
+  <tr>
+    <td><%=h registro.usuario_id %></td>
+    <td><%= link_to 'Show', registro %></td>
+    <td><%= link_to 'Edit', edit_registro_path(registro) %></td>
+    <td><%= link_to 'Destroy', registro, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New registro', new_registro_path %>
