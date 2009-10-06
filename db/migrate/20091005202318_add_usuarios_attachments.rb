@@ -5,8 +5,7 @@ class AddUsuariosAttachments < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :usuarios, :foto_filename
-    remove_column :usuarios, :foto_size
-
+    remove_column :usuarios, :foto_file_name
+    remove_column :usuarios, :foto_file_size
   end
 end
