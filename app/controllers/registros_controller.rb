@@ -48,7 +48,8 @@ class RegistrosController < ApplicationController
     respond_to do |format|
       if @registro and @registro.save
         flash[:notice] = "Se ha registrado correctamente #{@usuario.nombre_completo} con ci: #{@usuario.ci}"
-        format.html { redirect_to(root_url) }
+        @registro = Registro.new
+        format.html { render :action => "new" }
         format.xml  { render :xml => @registro, :status => :created, :location => @registro }
       elsif @usuario
         format.html { render :action => "new" }

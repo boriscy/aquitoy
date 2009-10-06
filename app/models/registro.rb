@@ -7,6 +7,7 @@ class Registro < ActiveRecord::Base
   cattr_accessor :rangos_por_defecto
   
   belongs_to :usuario
+  validates_presence_of :usuario
 
   attr_accessor :ci
 

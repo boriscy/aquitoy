@@ -1,5 +1,7 @@
 <h1>New registro</h1>
 
+<%= image_tag(@usuario.foto(:medium)) if @usuario and @usuario.foto_file_name.nil? == false %>
+
 <% form_for(@registro) do |f| %>
   <%= f.error_messages %>
 
