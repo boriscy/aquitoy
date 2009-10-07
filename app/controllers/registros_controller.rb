@@ -48,7 +48,7 @@ class RegistrosController < ApplicationController
     respond_to do |format|
       if @registro and @registro.save
         flash[:notice] = "<span class=\"hora\">#{@registro.tipo == "E"? "Entrada" : "Salida"}</span>
-          #{@usuario.nombre_completo} con ci: #{@usuario.ci} a horas 
+          #{@usuario.nombre_completo} con CI: #{@usuario.ci} a horas 
           <span class=\"hora\">#{I18n.l(@registro.created_at, :format => "%H:%M")}</span>"
 
         @registro = Registro.new
