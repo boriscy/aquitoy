@@ -47,7 +47,9 @@ class RegistrosController < ApplicationController
 
     respond_to do |format|
       if @registro and @registro.save
-        flash[:notice] = "Se ha registrado correctamente #{@usuario.nombre_completo} con ci: #{@usuario.ci}"
+        flash[:notice] = "Se ha registrado correctamente #{@usuario.nombre_completo} 
+          con ci: #{@usuario.ci} a horas <span class=\"hora\">#{I18n.l(@registro.created_at, :format => "%H:%M")}</span>"
+
         @registro = Registro.new
         format.html { render :action => "new" }
         format.xml  { render :xml => @registro, :status => :created, :location => @registro }
