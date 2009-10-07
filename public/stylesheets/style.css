@@ -1,4 +1,9 @@
-body { background-color: #fff; color: #333; }
+body { 
+  background-color: #fff; 
+  color: #000;
+  padding: 0px;
+  margin: 0px;
+}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -52,6 +57,21 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
+/*********************************************/
+#head{
+  background: url(../images/background.png) repeat-x;
+  height: 70px;
+  color: #FFF;
+  padding: 10px;
+  font-size: 1.4em;
+}
+#head h1{
+  margin: 10px 0px;
+}
+
+
+#wrap{ padding: 10px;}
+
 #flash{
   border: 2px solid;
   font-size: 1.4em;
@@ -73,3 +93,22 @@ a:hover { color: #fff; background-color:#000; }
   float: right;
   margin: -8px;
 }
+
+table{
+  border: 1px solid #7F7F7F;
+  border-collapse: collapse;
+}
+table tr{
+  border: 1px solid #7F7F7F;
+}
+table th , table td{ padding: 2px 6px;}
+table th{
+  background-color: #333;
+  color: #FFF;
+}
+
+/*Formularios*/
+label{ font-weight: bold; color: #333;}
+
+.l{ font-size: 1.3em;}
+.xl{ font-size: 1.7em;}

@@ -18,15 +18,24 @@
 
 </head>
 <body>
-  
-<div id="debug-error" style="display:none; width: 640px; height: 480px; overflow: auto; z-index: 10000"></div> 
 
-<div id="cont">
+  <div id="head">
+    <h1>Aquitoy</h1>
+    <div>Sistema de control de personal</div>
+  </div>
 
-  <div id="flashNotice"><%= flash_messages %></div>
+  <div id ="wrap">
 
-  <%= yield %>
-</div>
+    <div id="debug-error" style="display:none; width: 640px; height: 480px; overflow: auto; z-index: 10000"></div> 
+
+    <div id="cont">
+
+      <div id="flashNotice"><%= flash_messages %></div>
+
+      <%= yield %>
+    </div>
+
+  </div>
 
 </body>
 </html>
