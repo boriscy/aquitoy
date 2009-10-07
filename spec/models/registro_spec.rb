@@ -3,10 +3,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Registro do
   before(:each) do
     @valid_attributes = {
-      :usuario_id_id => 1
+      :usuario_id => 1
     }
+
     @rangos = [["8:00", "9:00"], ["14:00", "15:00"]]
     Registro.definir_horarios(@rangos)
+    Usuario.stub!(:find).and_return(mock_usuario)
+  end
+
+  def mock_usuario(stubs={})
+    @mock_usuario ||= mock_model(Usuario, stubs)
   end
 
   def stub_horas(hora)
@@ -18,20 +24,9 @@ describe Registro do
 
 
   it "debe crear un rango horas de entrada" do
-    Registro.entradas[0].should == (Time.zone.parse("#{Date.today} #{@rangos[0][0]}" )..Time.zone.parse("#{Date.today} #{@rangos[0][1]}" ))
-    Registro.entradas[1].should == (Time.zone.parse("#{Date.today} #{@rangos[1][0]}" )..Time.zone.parse("#{Date.today} #{@rangos[1][1]}" ))
-  end
-
-  it "debe cambiar entre días los rangos" do
-    d = Date.today + 1.day
-    Date.stub(:today).and_return(d)
-    stub_horas("08:49")
-    Registro.rangos_por_defecto = @rangos
-    Registro.create(:usuario_id => 2)
-
-    Registro.entradas[0].should == (Time.zone.parse("#{Date.today} #{@rangos[0][0]}" )..Time.zone.parse("#{Date.today} #{@rangos[0][1]}" ))
-    Registro.entradas[1].should == (Time.zone.parse("#{Date.today} #{@rangos[1][0]}" )..Time.zone.parse("#{Date.today} #{@rangos[1][1]}" ))
-
+    d = Date.today
+    Registro.entradas[0].should == (Time.zone.parse("#{d} #{@rangos[0][0]}" )..Time.zone.parse("#{d} #{@rangos[0][1]}" ))
+    Registro.entradas[1].should == (Time.zone.parse("#{d} #{@rangos[1][0]}" )..Time.zone.parse("#{d} #{@rangos[1][1]}" ))
   end
 
 
@@ -92,6 +87,18 @@ describe Registro do
     registro = Registro.create(:usuario_id => 1)
     registro.errors[:base].should_not == nil
     registro.id.should == nil
+  end
+
+  it "debe cambiar entre días los rangos" do
+    d = Date.today + 1.day
+    Date.stub(:today).and_return(d)
+    stub_horas("08:49")
+    Registro.rangos_por_defecto = @rangos
+    Registro.create(:usuario_id => 2)
+
+    Registro.entradas[0].should == (Time.zone.parse("#{d} #{@rangos[0][0]}" )..Time.zone.parse("#{d} #{@rangos[0][1]}" ))
+    Registro.entradas[1].should == (Time.zone.parse("#{d} #{@rangos[1][0]}" )..Time.zone.parse("#{d} #{@rangos[1][1]}" ))
+
   end
 
 end

@@ -6,6 +6,8 @@ class CreateRegistros < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :registros, :usuario_id
   end
 
   def self.down

@@ -2,7 +2,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.xml
   def index
-    @usuarios = Usuario.all
+    @usuarios = Usuario.all(:order => "nombre, paterno, materno")
 
     respond_to do |format|
       format.html # index.html.erb

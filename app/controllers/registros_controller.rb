@@ -56,7 +56,7 @@ class RegistrosController < ApplicationController
         format.xml  { render :xml => @registro.errors, :status => :unprocessable_entity }
       else
         @registro = Registro.new
-        flash[:notice] = "El usuario que ingreso no existe"
+        flash[:error] = "El usuario que ingreso no existe"
         format.html {render :action => "new"}
       end
     end

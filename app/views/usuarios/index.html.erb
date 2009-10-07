@@ -5,7 +5,8 @@
     <th>Nombre</th>
     <th>Paterno</th>
     <th>Materno</th>
-    <th>Ci</th>
+    <th>CI</th>
+    <th>Foto</th>
   </tr>
 
 <% @usuarios.each do |usuario| %>
@@ -14,6 +15,7 @@
     <td><%=h usuario.paterno %></td>
     <td><%=h usuario.materno %></td>
     <td><%=h usuario.ci %></td>
+    <td><%= image_tag(usuario.foto(:mini)) %></td>
     <td><%= link_to 'Show', usuario %></td>
     <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
     <td><%= link_to 'Destroy', usuario, :confirm => 'Are you sure?', :method => :delete %></td>

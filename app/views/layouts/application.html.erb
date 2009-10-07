@@ -30,3 +30,10 @@
 
 </body>
 </html>
+<script>
+  $(document).ready(function() {
+    $('img.close').live("click", function() {
+      $(this).parent().hide(200);
+    });
+  });
+</script>

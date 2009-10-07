@@ -9,6 +9,8 @@ class CreateUsuarios < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :usuarios, :ci, :unique => true
   end
 
   def self.down
