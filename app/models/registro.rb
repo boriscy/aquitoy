@@ -6,7 +6,10 @@ class Registro < ActiveRecord::Base
   cattr_reader :entradas, :salidas, :dia
   cattr_accessor :rangos_por_defecto
   
+  # Asociaciones
   belongs_to :usuario
+
+  # Validaciones
   validates_presence_of :usuario
 
   attr_accessor :ci
@@ -36,6 +39,15 @@ class Registro < ActiveRecord::Base
     return ejecutado
 
   end
+
+  # Formato de presentación para tipo
+  def tipo_print
+    case self.tipo
+      when "E" then "Entrada"
+      when "S" then "Salida"
+    end
+  end
+
 
 #########################
 # Metodos Privados
@@ -81,7 +93,7 @@ private
     end
 
     def crear_rangos_por_defecto
-      @@rangos_por_defecto = [["08:20", "10:00"], ["14:20", "16:00"]]
+      @@rangos_por_defecto = [["08:20", "10:00"], ["14:00", "16:00"]]
     end
     
     # Memoriza el rango como un cache
@@ -93,6 +105,27 @@ private
 
     def salidas
       @@salidas
+    end
+    
+    # Busqueda por usuario
+    # @param (Object, Integer) usuario
+    # @param String fecha_inicial
+    # @param String fecha_final
+    def find_usuario_entre_fechas(usuario, conditions = {})
+      conditions[:fecha_inicial] ||= Time.zone.now.at_beginning_of_day
+      conditions[:fecha_final] ||= conditions[:fecha_inicial]
+
+      [:fecha_inicial, :fecha_final].each{|fecha|
+        conditions[fecha] = convertir_fechahora(conditions[fecha]) if conditions[fecha].kind_of? Date or conditions[fecha].kind_of? String
+      }
+      conditions[:fecha_final] = (conditions[:fecha_final] + 1.day - 1.second)
+      usuario = usuario.id if usuario.is_a? Usuario
+      conditions[:created_at] = conditions[:fecha_inicial]..conditions[:fecha_final]
+      conditions.delete(:fecha_inicial)
+      conditions.delete(:fecha_final)
+      conditions[:usuario_id] = usuario
+
+      Registro.all(:conditions => conditions)
     end
 
 
@@ -128,6 +161,14 @@ private
         end
       end
       ret
+    end
+
+    def convertir_fechahora(fecha)
+      if fecha.kind_of? Date
+        Time.zone.at(fecha.to_time)
+      else
+        Time.zone.parse(fecha)
+      end
     end
 
   end

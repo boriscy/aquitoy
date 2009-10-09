@@ -6,6 +6,14 @@ describe RegistrosController do
     @mock_registro ||= mock_model(Registro, stubs)
   end
 
+  def mock_usuario(stubs={})
+    @mock_usuario ||= mock_model(Usuario, stubs)
+  end
+
+  def mock_I18n(stubs={})
+    @mock_i18n ||= mock(I18n, stubs)
+  end
+
   describe "GET index" do
     it "assigns all registros as @registros" do
       Registro.stub!(:find).with(:all).and_return([mock_registro])
@@ -38,25 +46,42 @@ describe RegistrosController do
     end
   end
 
+  #############################################
+  # Stubs para poder crear
+  def stubs_create()
+    Usuario.stub!(:find_by_ci).with(anything()).and_return(mock_usuario(:nombre_completo => '', :ci => ''))
+    Registro.stub!(:new).with(kind_of(Hash)).and_return(mock_registro(:save => true, :tipo_print => '', :created_at => ''))
+    Registro.stub!(:new).and_return(mock_registro())
+    I18n.stub!(:l).with(anything(), kind_of(Hash)).and_return("")
+  end
+
   describe "POST create" do
 
     describe "with valid params" do
       it "assigns a newly created registro as @registro" do
-        Registro.stub!(:new).with({'these' => 'params'}).and_return(mock_registro(:save => true))
+        stubs_create()
         post :create, :registro => {:these => 'params'}
-        assigns[:registro].should equal(mock_registro)
+        assigns[:registro].should equal(mock_registro())
       end
 
-      it "redirects to the created registro" do
-        Registro.stub!(:new).and_return(mock_registro(:save => true))
+      it "Debe retornar al mismo lugar y usar new" do
+        stubs_create()
         post :create, :registro => {}
-        response.should redirect_to(registro_url(mock_registro))
+        flash[:notice].should_not == nil
+        response.should render_template("new")  
       end
+    end
+
+    # Stubs para poder crear
+    def stubs_create_wrong()
+      Usuario.stub!(:find_by_ci).with(anything()).and_return(nil)
+      Registro.stub!(:new).and_return(mock_registro())
+      I18n.stub!(:l).with(anything(), kind_of(Hash)).and_return("")
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved registro as @registro" do
-        Registro.stub!(:new).with({'these' => 'params'}).and_return(mock_registro(:save => false))
+        stubs_create_wrong()
         post :create, :registro => {:these => 'params'}
         assigns[:registro].should equal(mock_registro)
       end

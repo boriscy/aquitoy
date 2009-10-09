@@ -1,5 +1,7 @@
-<h1>Listing usuarios</h1>
+<h1>Usuarios</h1>
 
+<%= link_to 'Nuevo usuario', new_usuario_path, :class => 'new' %>
+<br/>
 <table>
   <tr>
     <th>Nombre</th>
@@ -17,13 +19,12 @@
     <td><%=h usuario.materno %></td>
     <td><%=h usuario.ci %></td>
     <td><%= image_tag(usuario.foto(:mini)) %></td>
-    <td><%= link_to 'Show', usuario %></td>
-    <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
-    <td><%= link_to 'Destroy', usuario, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Ver', usuario %></td>
+    <td><%= link_to 'Editar', edit_usuario_path(usuario) %></td>
+    <td><%= link_to 'Borrar', usuario, :confirm => 'Esta seguro?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
 
-<%= link_to 'New usuario', new_usuario_path %>
+<%= will_paginate @usuarios %>

@@ -46,12 +46,14 @@ describe Registro do
     stub_horas("8:55")
     reg = Registro.create!(:usuario_id => 1)
     reg.tipo.should == "E"
+    reg.tipo_print.should == "Entrada"
   end
 
   it "debe registrar hora de salida" do
     stub_horas("12:55")
     reg = Registro.create(:usuario_id => 1)
     reg.tipo.should == "S"
+    reg.tipo_print.should == "Salida"
   end
 
   it "no debe registrar dos entradas para el mismo usuario" do
@@ -100,5 +102,24 @@ describe Registro do
     Registro.entradas[1].should == (Time.zone.parse("#{d} #{@rangos[1][0]}" )..Time.zone.parse("#{d} #{@rangos[1][1]}" ))
 
   end
+
+  it "debe buscar un usuario entre fechas" do
+    @usuario_mock = mock_model(Usuario, :id => 1)
+
+    stub_horas("08:40")
+    Registro.create(:usuario_id => 1)
+    stub_horas("12:30")
+    Registro.create(:usuario_id => 1)
+    stub_horas("14:40")
+    Registro.create(:usuario_id => 1)
+    # otro dia
+
+    Registro.find_usuario_entre_fechas(1).size.should == 3
+    d = Date.today
+    Registro.find_usuario_entre_fechas(@usuario_mock, :fecha_inicial => d.to_s, :fecha_final => d).size.should == 3
+
+  end
+
+
 
 end

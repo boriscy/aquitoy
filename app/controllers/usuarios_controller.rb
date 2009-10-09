@@ -1,8 +1,11 @@
 class UsuariosController < ApplicationController
+
+  before_filter :revisar_permiso
+
   # GET /usuarios
   # GET /usuarios.xml
   def index
-    @usuarios = Usuario.all(:order => "nombre, paterno, materno")
+    @usuarios = Usuario.paginate(:page => @page, :order => "nombre, paterno, materno")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +16,8 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1
   # GET /usuarios/1.xml
   def show
-    @usuario = Usuario.find(params[:id])
+    @usuario = Usuario.find(params[:id], :include => :registros,
+                            :order => "registros.created_at")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -75,7 +79,7 @@ class UsuariosController < ApplicationController
   # DELETE /usuarios/1.xml
   def destroy
     @usuario = Usuario.find(params[:id])
-    @usuario.destroy
+#    @usuario.destroy
 
     respond_to do |format|
       format.html { redirect_to(usuarios_url) }

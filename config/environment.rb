@@ -18,6 +18,8 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   # config.gem "bj"
   config.gem "thoughtbot-paperclip", :lib => 'paperclip' , :source => "http://gems.github.com"
+  config.gem "binarylogic-authlogic", :lib => 'authlogic', :source => 'http://gems.github.com'
+  config.gem "mislav-will_paginate", :lib => "will_paginate", :source =>"http://gems.github.com"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 

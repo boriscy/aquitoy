@@ -1,4 +1,6 @@
 class RegistrosController < ApplicationController
+  before_filter :revisar_permiso, :except => [:new, :create]
+
   # GET /registros
   # GET /registros.xml
   def index
@@ -44,10 +46,9 @@ class RegistrosController < ApplicationController
     if @usuario
       @registro = Registro.new(:usuario_id => @usuario.id)
     end
-
     respond_to do |format|
       if @registro and @registro.save
-        flash[:notice] = "<span class=\"hora\">#{@registro.tipo == "E"? "Entrada" : "Salida"}</span>
+        flash[:notice] = "<span class=\"hora\">#{@registro.tipo_print}</span>
           #{@usuario.nombre_completo} con CI: #{@usuario.ci} a horas 
           <span class=\"hora\">#{I18n.l(@registro.created_at, :format => "%H:%M")}</span>"
 

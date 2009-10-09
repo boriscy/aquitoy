@@ -6,7 +6,11 @@ describe Usuario do
       :nombre => "Amaru",
       :paterno => "Barroso",
       :materno => "Luna Pizarro",
-      :ci => "3354546"
+      :ci => "3354546",
+      :login => "kari",
+      :password => "amaru123",
+      :password_confirmation => "amaru123"
+
     }
     @usuario = Usuario.new(@valid_attributes)
   end
@@ -34,7 +38,10 @@ describe Usuario do
       :nombre => "Amaru ",
       :paterno => "Barroso ",
       :materno => "Luna  Pizarro ",
-      :ci => "3354546 "
+      :ci => "3354546 ",
+      :login => "kari",
+      :password => "amaru123",
+      :password_confirmation => "amaru123"
     }
     @usuario = Usuario.create!(@usuario_attributes)
     

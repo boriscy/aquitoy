@@ -116,3 +116,14 @@ label{ font-weight: bold; color: #333;}
   color: #005500;
   font-size: 1.1em;
 }
+
+.new{
+  margin: 4px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color:  #007700 !important;
+}
+
+a.new:hover{
+  color: #FFF !important;
+}

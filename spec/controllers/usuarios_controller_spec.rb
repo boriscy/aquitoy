@@ -2,6 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsuariosController do
 
+  before(:each) do
+    ApplicationController.stub(:current_user).and_return(mock_usuario)
+  end
+
   def mock_usuario(stubs={})
     @mock_usuario ||= mock_model(Usuario, stubs)
   end

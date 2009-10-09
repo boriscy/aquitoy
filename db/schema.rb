@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005202318) do
+ActiveRecord::Schema.define(:version => 20091009130800) do
 
   create_table "registros", :force => true do |t|
     t.integer  "usuario_id"
@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(:version => 20091005202318) do
     t.datetime "updated_at"
     t.string   "foto_file_name"
     t.integer  "foto_file_size"
+    t.string   "login",             :limit => 20
+    t.string   "password",          :limit => 40
+    t.string   "password_salt"
+    t.string   "crypted_password"
+    t.string   "persistence_token"
   end
 
 end

@@ -19,5 +19,7 @@ module ApplicationHelper
     @show_title
   end
 
-
 end
+# Opciones de visualización
+WillPaginate::ViewHelpers.pagination_options[:previous_label] = 'prev'
+WillPaginate::ViewHelpers.pagination_options[:next_label] = 'sig'
