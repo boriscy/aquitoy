@@ -12,7 +12,7 @@ describe UsuariosController do
 
   describe "GET index" do
     it "assigns all usuarios as @usuarios" do
-      Usuario.stub!(:find).with(:all).and_return([mock_usuario])
+      Usuario.stub!(:paginate).with(kind_of(Hash)).and_return([mock_usuario])
       get :index
       assigns[:usuarios].should == [mock_usuario]
     end
@@ -20,7 +20,7 @@ describe UsuariosController do
 
   describe "GET show" do
     it "assigns the requested usuario as @usuario" do
-      Usuario.stub!(:find).with("37").and_return(mock_usuario)
+      Usuario.stub!(:find).with("37", kind_of(Hash)).and_return(mock_usuario(:id => 37))
       get :show, :id => "37"
       assigns[:usuario].should equal(mock_usuario)
     end
@@ -47,7 +47,8 @@ describe UsuariosController do
     describe "with valid params" do
       it "assigns a newly created usuario as @usuario" do
         Usuario.stub!(:new).with({'these' => 'params'}).and_return(mock_usuario(:save => true))
-        post :create, :usuario => {:these => 'params'}
+    debugger
+        post :create, :usuario => {'these' => 'params'}
         assigns[:usuario].should equal(mock_usuario)
       end
 

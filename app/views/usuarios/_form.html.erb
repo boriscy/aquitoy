@@ -17,10 +17,13 @@
     <%= f.label :ci %><br />
     <%= f.text_field :ci %>
   </p>
+
+  <% if params[:action] == "new" %>
    <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>
   </p>
+  <% end %>
 
   <--!
    <p>
