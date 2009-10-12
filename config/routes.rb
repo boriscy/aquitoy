@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :usuario_sessiones
   map.login '/login', :controller => :usuario_sessiones, :action => :new
-  map.login '/logout', :controller => :usuario_sessiones, :action => :destroy
+  map.logout '/logout', :controller => :usuario_sessiones, :action => :destroy
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

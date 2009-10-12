@@ -120,6 +120,4 @@ describe Registro do
 
   end
 
-
-
 end

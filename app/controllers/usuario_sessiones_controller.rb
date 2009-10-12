@@ -23,7 +23,7 @@ class UsuarioSessionesController < ApplicationController
   def destroy
     @usuario_session = UsuarioSession.find(params[:id])
     @usuario_session.destroy
-    flash[:notice] = "Usted Salio del Sistema de Almacenes."
+    flash[:notice] = "Usted Salio del Sistema."
     redirect_to login_url
   end
 

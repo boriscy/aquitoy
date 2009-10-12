@@ -93,7 +93,7 @@ private
     end
 
     def crear_rangos_por_defecto
-      @@rangos_por_defecto = [["08:20", "10:00"], ["14:00", "16:00"]]
+      @@rangos_por_defecto = [["08:20", "11:00"], ["14:00", "16:30"]]
     end
     
     # Memoriza el rango como un cache
@@ -111,6 +111,7 @@ private
     # @param (Object, Integer) usuario
     # @param String fecha_inicial
     # @param String fecha_final
+    # @return Array
     def find_usuario_entre_fechas(usuario, conditions = {})
       conditions[:fecha_inicial] ||= Time.zone.now.at_beginning_of_day
       conditions[:fecha_final] ||= conditions[:fecha_inicial]
