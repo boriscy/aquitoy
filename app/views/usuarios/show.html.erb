@@ -1,27 +1,45 @@
+<style>
+  .label{
+    width: 5em;
+    display: inline-block;
+  }
+</style>
+
 <h1>Usuario</h1>
+
 
 <%= link_to 'Editar', edit_usuario_path(@usuario) %> |
 <%= link_to 'Lista', usuarios_path %>
+<br/>
+<br/>
 
-<p>
-  <b>Nombre:</b>
-  <%=h @usuario.nombre %>
-</p>
+<div class="cb">
+  <%= image_tag @usuario.foto(:medium), :class => 'fl' %>
+  <div style="float:left">
+    <p>
+      <b class="label">Nombre:</b>
+      <%=h @usuario.nombre %>
+    </p>
 
-<p>
-  <b>Paterno:</b>
-  <%=h @usuario.paterno %>
-</p>
+    <p>
+      <b class="label">Paterno:</b>
+      <%=h @usuario.paterno %>
+    </p>
 
-<p>
-  <b>Materno:</b>
-  <%=h @usuario.materno %>
-</p>
+    <p>
+      <b class="label">Materno:</b>
+      <%=h @usuario.materno %>
+    </p>
 
-<p>
-  <b>Ci:</b>
-  <%=h @usuario.ci %>
-</p>
+    <p>
+      <b class="label">CI:</b>
+      <%=h @usuario.ci %>
+    </p>
+  </div>
+</div>
+<br class="cb" />
+<br/>
 
+<h2>Horarios de Entrada y Salida</h2>
 
 <%= render :partial => "/registros/detalle_usuario" %>

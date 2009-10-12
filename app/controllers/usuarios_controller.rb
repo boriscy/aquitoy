@@ -16,8 +16,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1
   # GET /usuarios/1.xml
   def show
-    @usuario = Usuario.find(params[:id], :include => :registros,
-                            :order => "registros.created_at")
+    @usuario = Usuario.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

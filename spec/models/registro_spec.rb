@@ -31,15 +31,14 @@ describe Registro do
 
 
   it "debe crear un rango horas de salida" do
-    d = Date.today
-    e = @rangos.inject([]){|arr, v| arr << (Time.zone.parse("#{d} #{v[1]}") )}
-    e[0] = e[0] + 1
-    e[1] = e[1] + 1
-    s = []
-    s[0] = Time.zone.parse("#{d} #{@rangos[1][0]}") - 1
-    s[1] = Time.zone.parse("#{d} #{@rangos[0][0]}") + 1.day - 1
-    Registro.salidas[0].should == (e[0]..s[0])
-    Registro.salidas[1].should == (e[1]..s[1])
+    d = Date.parse("2009-10-01")
+    Registro.definir_horarios(@rangos, d)
+    ini = Time.zone.parse("2009-10-01 #{@rangos[0][1]}") + 1.second
+    fin = Time.zone.parse("2009-10-01 #{@rangos[1][0]}") - 1.second
+    Registro.salidas[0].should == (ini..fin)
+    ini = Time.zone.parse("2009-10-01 #{@rangos[1][1]}") + 1.second
+    fin = d.to_time + 1.day - 1.second
+    Registro.salidas[1].should == (ini..fin)
   end
 
   it "debe registrar hora de entrada" do
@@ -118,6 +117,29 @@ describe Registro do
     d = Date.today
     Registro.find_usuario_entre_fechas(@usuario_mock, :fecha_inicial => d.to_s, :fecha_final => d).size.should == 3
 
+  end
+
+  it "debe convertir horas a segundos" do
+    Registro.convertir_hora_a_segundos("12:33").should == (12 * 60 ** 2 + 33 * 60)
+    Registro.convertir_hora_a_segundos("18:33:15").should == (18 * 60 ** 2 + 33 * 60 + 15)
+  end
+
+  it "debe calcular las entradas en segundos crear_rangos_segundos()" do
+    r1 = Registro.convertir_hora_a_segundos(@rangos[0][0])
+    r2 = Registro.convertir_hora_a_segundos(@rangos[0][1])
+    e = Registro.crear_rangos_segundos[:entradas]
+    e[0].should == (r1..r2)
+    r1 = Registro.convertir_hora_a_segundos(@rangos[1][0])
+    r2 = Registro.convertir_hora_a_segundos(@rangos[1][1])
+    e[1].should == (r1..r2)
+  end
+
+  it "debe calcular las salidas en segundos crear_rangos_segundos()" do
+    r1, r2 = (Registro.convertir_hora_a_segundos(@rangos[0][1]) + 1), (Registro.convertir_hora_a_segundos(@rangos[1][0]) - 1)
+    s = Registro.crear_rangos_segundos[:salidas]
+    s[0].should == (r1..r2)
+    r1, r2 = (Registro.convertir_hora_a_segundos(@rangos[1][1]) + 1), Registro.convertir_hora_a_segundos("23:59:59")
+    s[1].should == (r1..r2)
   end
 
 end

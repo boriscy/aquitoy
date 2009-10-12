@@ -127,3 +127,10 @@ label{ font-weight: bold; color: #333;}
 a.new:hover{
   color: #FFF !important;
 }
+
+
+/*Clases y estilos especiales*/
+.b{ font-weight: bold;}
+.fl{ float: left;}
+.cb{ clear: both;}
+img{ margin: 3px;}
