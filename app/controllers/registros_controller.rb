@@ -23,6 +23,7 @@ class RegistrosController < ApplicationController
     end
   end
 
+
   # GET /registros/new
   # GET /registros/new.xml
   def new

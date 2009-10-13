@@ -62,9 +62,8 @@ describe Usuario do
       arr << r
     end
     Registro.stub!(:find_usuario_entre_fechas).with(kind_of(Fixnum), kind_of(Hash)).and_return(arr)
-
-#    @usuario.registros_ordenados[0][:entradas].size.should == 2 #[arr[0], arr[2]]
-    @usuario.registros_ordenados[0][:salidas].should == [arr[1], Registro.new]
+    @usuario.registros_ordenados[Date.parse(a[0])].should == [arr[0], arr[1], arr[2]]
+    @usuario.registros_ordenados[Date.parse(a[3])].should == [arr[3], arr[4], arr[5], arr[6]]
 
   end
   

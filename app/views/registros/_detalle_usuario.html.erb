@@ -1,21 +1,25 @@
+<span class="green b">Entradas</span><br/>
+<span class="blue b">Salidas</span>
+
 <table>
   <tr>
     <th>Fecha</th>
-    <% Registro.entradas.size.times do %>
-      <th>Entrada</th>
-      <th>Salida</th>
-    <% end %>
+    <th>
+      Entradas y Salidas
+    </th>
   </tr>
 
-  <% @usuario.registros_ordenados.each do |reg| %>
+  <% @usuario.registros_ordenados(@conditions).each do |fecha, regs| %>
     <tr>
       <td>
-        <%= I18n.l(reg[:fecha], :format => "%d de %b %Y") %>
+        <%= I18n.l(fecha, :format => "%d de %b %Y") %>
       </td>
-      <% reg[:entradas].each_index do |i| %>
-        <td><%= reg[:entradas][i].created_at %></td>
-        <td><%= reg[:salidas][i].created_at %></td>
-      <% end %>
+      <td>
+        <% regs.each do |reg| %>
+          <% @css = reg.tipo == "E" ? "green" : "blue" %>
+          <span class="b <%= @css %>"><%= reg.created_at.strftime("%H:%M") %></span>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>

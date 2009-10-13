@@ -7,14 +7,16 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
   <title><%= h(yield(:title) || "")  %> - <%= APP_NAME %></title>
-  <%= stylesheet_link_tag "style" %>
+  <%= stylesheet_link_tag "style", 
+    "../javascripts/development-bundle/themes/ui-lightness/jquery-ui-1.7.2.custom" %>
 
   <script type="text/javascript" language="javascript" charset="utf-8">
     //<![CDATA[
     var token = '<%= form_authenticity_token() %>';
     //]]>
   </script>
-  <%= javascript_include_tag "jquery-1.3.2.min.js", :cache => true %>
+  <%= javascript_include_tag "jquery-1.3.2.min.js", "js/jquery-ui-1.7.2.custom.min.js", 
+    "development-bundle/ui/i18n/ui.datepicker-es.js", :cache => true %>
 
 </head>
 <body>
@@ -44,5 +46,6 @@
     $('img.close').live("click", function() {
       $(this).parent().hide(200);
     });
+    $(".fecha").datepicker({dateFormat : "d-m-yy"});
   });
 </script>

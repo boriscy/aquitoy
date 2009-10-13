@@ -3,6 +3,7 @@
     width: 5em;
     display: inline-block;
   }
+  label{width: 7em; display: inline-block;}
 </style>
 
 <h1>Usuario</h1>
@@ -42,4 +43,29 @@
 
 <h2>Horarios de Entrada y Salida</h2>
 
-<%= render :partial => "/registros/detalle_usuario" %>
+<fieldset style="width:20em">
+  <legend>Buscar entre fechas</legend>
+  <%= form_tag(@usuario, :method => "get") %>
+    <label for="fecha_inicial">Fecha inicial</label>
+    <input type="text" class="fecha" name="fecha_inicial" autocomplete="off" value="<%= Date.today.strftime("%d-%m-%Y") %>" /><br/>
+    <label for="fecha_inicial">Fecha final</label>
+    <input type="text" class="fecha" name="fecha_final" autocomplete="off" value="<%= Date.today.strftime("%d-%m-%Y") %>" /><br/>
+    <input type="submit" value="Buscar">
+  </form>
+</fieldset>
+
+<div id="registros">
+  <%= render :partial => "/registros/detalle_usuario" %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('form').submit(function() {
+      $.get($(this).attr("action"), $(this).serialize(), function(resp) {
+        $('#registros').html(resp);
+      });
+      
+      return false;
+    });
+  });
+</script>

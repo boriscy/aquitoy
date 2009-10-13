@@ -17,9 +17,17 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1.xml
   def show
     @usuario = Usuario.find(params[:id])
+    @conditions = {}
+    [:fecha_inicial, :fecha_final].each{|v|
+      @conditions[v] = params[v] if params[v]
+    }
 
     respond_to do |format|
-      format.html # show.html.erb
+      if request.xhr?
+        format.html { render :partial => "registros/detalle_usuario", :layout => false}
+      else
+        format.html
+      end
       format.xml  { render :xml => @usuario }
     end
   end
