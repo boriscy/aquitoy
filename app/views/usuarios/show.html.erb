@@ -62,7 +62,8 @@
   $(document).ready(function() {
     $('form').submit(function() {
       $.get($(this).attr("action"), $(this).serialize(), function(resp) {
-        $('#registros').html(resp);
+        $('#registros').hide()
+        .fadeIn(300).html(resp);
       });
       
       return false;
