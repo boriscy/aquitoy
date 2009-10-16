@@ -85,5 +85,13 @@ describe Usuario do
     @usuario.valid?.should == true
   end
 
+  it "debe poder actualizar y adicionar login password" do
+    @usuario = Usuario.create(@valid_attributes)
+    @usuario.valid?.should == true
+    [:login, :password, :password_confirmation].each{ |v| @usuario[v] = "" }
+    @usuario.save
+    @usuario.login.should == @usuario.nombre.squish.gsub(/\s/, "-")
+  end
+
   
 end

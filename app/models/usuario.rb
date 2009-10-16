@@ -2,7 +2,7 @@ class Usuario < ActiveRecord::Base
 
   # Callbacks
   before_save :limpiar_espacios_blancos
-  before_validation :adicionar_login_password, :if => Proc.new{ |usuario| usuario.login.blank? and usuario.id.nil? }
+  before_validation :adicionar_login_password, :if => Proc.new{ |usuario| usuario.login.blank? }
 
   # Asociaciones
   has_many :registros
