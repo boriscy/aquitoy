@@ -2,6 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RegistrosController do
 
+  before(:each) do
+    @us = mock("hola", :record => mock_usuario)
+    UsuarioSession.stub(:find).and_return(@us)
+  end
+
   def mock_registro(stubs={})
     @mock_registro ||= mock_model(Registro, stubs)
   end
@@ -15,11 +20,13 @@ describe RegistrosController do
   end
 
   describe "GET index" do
+
     it "assigns all registros as @registros" do
-      Registro.stub!(:find).with(:all).and_return([mock_registro])
+      Registro.stub!(:all).and_return([mock_registro])
       get :index
       assigns[:registros].should == [mock_registro]
     end
+
   end
 
   describe "GET show" do
@@ -49,7 +56,7 @@ describe RegistrosController do
   #############################################
   # Stubs para poder crear
   def stubs_create()
-    Usuario.stub!(:find_by_ci).with(anything()).and_return(mock_usuario(:nombre_completo => '', :ci => ''))
+    Usuario.stub!(:find_by_ci).with(anything()).and_return(mock_model(Usuario, :nombre_completo => '', :ci => ''))
     Registro.stub!(:new).with(kind_of(Hash)).and_return(mock_registro(:save => true, :tipo_print => '', :created_at => ''))
     Registro.stub!(:new).and_return(mock_registro())
     I18n.stub!(:l).with(anything(), kind_of(Hash)).and_return("")
@@ -58,13 +65,14 @@ describe RegistrosController do
   describe "POST create" do
 
     describe "with valid params" do
+#      Usuario.stub!(:find_by_ci).and_return(mock_model(Usuario))
       it "assigns a newly created registro as @registro" do
-        stubs_create()
+        @m = mock_model(Registro, :save => true)
         post :create, :registro => {:these => 'params'}
-        assigns[:registro].should equal(mock_registro())
+        assigns[:registro].should_not equal(@m)
       end
 
-      it "Debe retornar al mismo lugar y usar new" do
+      it "Debe retornar a new" do
         stubs_create()
         post :create, :registro => {}
         flash[:notice].should_not == nil
