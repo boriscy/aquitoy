@@ -8,7 +8,7 @@
 
   <title><%= h(yield(:title) || "")  %> - <%= APP_NAME %></title>
   <%= stylesheet_link_tag "style", 
-    "../javascripts/development-bundle/themes/ui-lightness/jquery-ui-1.7.2.custom" %>
+    "../javascripts/development-bundle/themes/ui-lightness/jquery-ui-1.7.2.custom", :cache => 'base' %>
 
   <script type="text/javascript" language="javascript" charset="utf-8">
     //<![CDATA[

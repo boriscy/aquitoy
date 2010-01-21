@@ -32,5 +32,5 @@ config.gem "rspec-rails", :lib => false, :version => ">=1.2.4"
 #config.gem "selenium-client", :lib => "selenium/client"
 #config.gem "cucumber", :lib => false, :version => ">=0.3.1"
 config.gem 'ruby-debug'
-config.gem "thoughtbot-shoulda", :lib=> false # :lib => "shoulda" Para Rspec
-config.gem "thoughtbot-factory_girl", :lib  => "factory_girl", :source => "http://gems.github.com"
+config.gem "shoulda", :lib=> false # :lib => "shoulda" Para Rspec
+config.gem "factory_girl", :lib  => "factory_girl", :source => "http://gems.github.com"
